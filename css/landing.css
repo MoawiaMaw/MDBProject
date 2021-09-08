@@ -1,0 +1,31 @@
+body, html{
+    margin: 0px;
+    padding: 0px;
+    height: 100%;
+    background-color: black;
+    color: white;
+}
+.land {
+    position: relative;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+}
+
+.land::before{
+    content: "";
+    position: absolute;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    background-image: url(../img/Camping-Experience.jpg);
+    background-position: top center;
+    background-repeat: no-repeat;
+    background-size: cover;
+    opacity: 0.4;
+}
+ .text-div{
+     position: relative;
+ }

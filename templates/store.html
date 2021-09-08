@@ -1,0 +1,238 @@
+<div class="container">
+    <div class="alert indigo lighten-2" id="loginAlert" style="text-align: center;">
+        Welcome {{adName}}
+    </div>
+    <div class="row" ng-show="isLoggedIn == false">
+        <h1 style="text-align: center;">YOU NEED TO BE LOGGED IN FIRST</h1>
+    </div>
+    <div class="row" style="margin-top: 10px;" ng-hide="isLoggedIn == false">
+        <div class="col-xs-12 col-sm-6 col-md-4">
+            <input type="search" class="form-control" placeholder="Search product" ng-model="SearchFilter"> <br>
+            <button class="btn btn-indigo btn-block" ng-click="showForm()">ADD A PRODUCT</button>
+            <div class="card indigo lighten-5">
+
+                <form action="" class="well" style="display: none;" ng-submit="addProduct()">
+                    <div class="md-form mx-2">
+                        <label for=""> name: </label>
+                        <input type="text" name="" id="" class="form-control" ng-model="name">
+                    </div>
+                    <div class="md-form mx-2">
+                        <label for=""> section: </label>
+                        <input type="text" name="" id="" class="form-control" ng-model="section">
+                    </div>
+                    <div class="md-form mx-2">
+                        <label for=""> quantity </label>
+                        <input type="number" name="" id="" class="form-control" ng-model="quantity">
+                    </div>
+                    <div class="md-form mx-2">
+                        <label for=""> price </label>
+                        <input type="number" name="" id="" class="form-control" ng-model="price">
+                    </div>
+                    <div class="md-form mx-2">
+                        <label for=""> description </label>
+                        <textarea name="" id="" cols="30" rows="5" class="md-textarea form-control"
+                            ng-model="description"></textarea>
+                    </div>
+                    <div class="form-group">
+                        <label for="" class="mx-2"> image </label>
+                        <input type="file" name="" id="" class=" mx-2" mds-file file="x" base64="y">
+                        <img src="{{y}}" alt="" width="100%">
+                    </div>
+                    <button class="btn btn-success btn-block mb-2"> ADD</button>
+                </form>
+            </div>
+        </div>
+        <div class="col-xs-12 col-sm-6 col-md-8">
+            <ul class="nav nav-tabs" role="tablist" ng-model="productSection">
+                <li class=" nav-item" role="tab" data-toggle="tab">
+                    <a href="#elect" class="nav-link active"
+                        ng-click="$event.preventDefault(); productSection = 'electrics'" data-toggle="tab">Electrics</a>
+                </li>
+                <li class="nav-item" role="tab" data-toggle="tab"><a href="#phone" class="nav-link "
+                        ng-click="$event.preventDefault(); productSection = 'phones'" data-toggle="tab">Phones</a>
+                </li>
+                <li class="nav-item" role="tab" data-toggle="tab"><a href="#laptop" class="nav-link "
+                        ng-click="$event.preventDefault(); productSection = 'laptops'" data-toggle="tab">laptops</a>
+                </li>
+            </ul>
+            <div class="tab-content">
+                <div id="elect" class="tab-pane fade show active">
+                    <h1>Electrics</h1>
+                    <div class="row">
+                        <div class="col-xs-12 col-sm-12 col-md-6 col-lg-4"
+                            ng-repeat="product in products|sectionFilter:productSection|filter:SearchFilter">
+                            <div class="card mb-3">
+
+                                <!-- Card image -->
+                                <div class="view view-cascade overlay">
+                                    <img class="card-img-top" src="{{product.image}}" alt="Card image cap"
+                                        style="height: 200px;">
+                                    <a>
+                                        <div class="mask rgba-white-slight"></div>
+                                    </a>
+                                </div>
+
+                                <!-- Card content -->
+                                <div class="card-body card-body-cascade">
+
+                                    <!-- Label -->
+                                    <h6 class="purble-text pb-2 pt-1">{{product.price|currency}}</h6>
+                                    <!-- Title -->
+                                    <h5 class="font-weight-bold card-title">{{product.name}}</h5>
+                                    <!-- Text -->
+                                    <p class="card-text">{{product.description.substring(0,20)}}...</p>
+                                    <span class="float-right">{{product.quantity}}-item(s)</span>
+                                    <p>{{product.section}}</p>
+                                </div>
+
+                                <!-- Card footer -->
+                                <div class="card-footer text-muted">
+
+                                    <button class="btn btn-warning white-text btn-sm btn-block"
+                                        ng-click="preEdit(product, $index)">EDIT</button>
+                                    <button class="btn btn-danger white-text btn-sm btn-block"
+                                        ng-click="deleteProduct(product)">Delete</button>
+                                    <p>EDIT IMAGE:</p>
+                                    <input type="file" mds-file file="x" base64="y"
+                                        mds-change="preEditProductImage(file,product.id)">
+
+                                </div>
+
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div id="phone" class="tab-pane fade">
+                    <h1>Phones</h1>
+
+                    <div class="row">
+                        <div class="col-xs-12 col-sm-12 col-md-6 col-lg-4"
+                            ng-repeat="product in products|sectionFilter:productSection|filter:SearchFilter">
+                            <div class="card mb-3">
+
+                                <!-- Card image -->
+                                <div class="view view-cascade overlay">
+                                    <img class="card-img-top" src="{{product.image}}" alt="Card image cap"
+                                        style="height: 200px;">
+                                    <a>
+                                        <div class="mask rgba-white-slight"></div>
+                                    </a>
+                                </div>
+
+                                <!-- Card content -->
+                                <div class="card-body card-body-cascade">
+
+                                    <!-- Label -->
+                                    <h6 class="purble-text pb-2 pt-1">{{product.price|currency}}</h6>
+                                    <!-- Title -->
+                                    <h5 class="font-weight-bold card-title">{{product.name}}</h5>
+                                    <!-- Text -->
+                                    <p class="card-text">{{product.description.substring(0,20)}}...</p>
+                                    <span class="float-right">{{product.quantity}}-item(s)</span>
+                                    <p>{{product.section}}</p>
+                                </div>
+
+                                <!-- Card footer -->
+                                <div class="card-footer text-muted">
+
+                                    <button class="btn btn-warning btn-sm btn-block"
+                                        ng-click="preEdit(product, $index)">EDIT</button>
+                                    <button class="btn btn-danger btn-sm btn-block"
+                                        ng-click="deleteProduct(product)">Delete</button>
+                                    <p>EDIT IMAGE:</p>
+                                    <input type="file" mds-file file="x" base64="y"
+                                        mds-change="preEditProductImage(file,product.id)">
+
+                                </div>
+
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div id="laptop" class="tab-pane fade">
+                    <h1>Laptops</h1>
+                    <div class="row">
+                        <div class="col-xs-12 col-sm-12 col-md-6 col-lg-4"
+                            ng-repeat="product in products|sectionFilter:productSection|filter:SearchFilter">
+                            <div class="card mb-3">
+
+                                <!-- Card image -->
+                                <div class="view view-cascade overlay">
+                                    <img class="card-img-top" src="{{product.image}}" alt="Card image cap"
+                                        style="height: 200px;">
+                                    <a>
+                                        <div class="mask rgba-white-slight"></div>
+                                    </a>
+                                </div>
+
+                                <!-- Card content -->
+                                <div class="card-body card-body-cascade">
+
+                                    <!-- Label -->
+                                    <h6 class="purble-text pb-2 pt-1">{{product.price|currency}}</h6>
+                                    <!-- Title -->
+                                    <h5 class="font-weight-bold card-title">{{product.name}}</h5>
+                                    <!-- Text -->
+                                    <p class="card-text">{{product.description.substring(0,20)}}...</p>
+                                    <span class="float-right">{{product.quantity}}-item(s)</span>
+                                    <p>{{product.section}}</p>
+                                </div>
+
+                                <!-- Card footer -->
+                                <div class="card-footer text-muted">
+
+                                    <button class="btn btn-warning btn-sm btn-block"
+                                        ng-click="preEdit(product, $index)">EDIT</button>
+                                    <button class="btn btn-danger btn-sm btn-block"
+                                        ng-click="deleteProduct(product)">Delete</button>
+                                    <p>EDIT IMAGE:</p>
+                                    <input type="file" mds-file file="x" base64="y"
+                                        mds-change="preEditProductImage(file,product.id)">
+
+                                </div>
+
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div id="myModal" class="modal fade">
+                <div class="modal-dialog">
+                    <div class="modal-content">
+                        <div class="modal-header indigo white-text">
+                            Edit Product
+                        </div>
+                        <div class="modal-body indigo lighten-5">
+
+                            <form ng-submit="editProduct()">
+                                <div class="form-group">
+                                    <label>Name</label>
+                                    <input type="text" class="form-control" ng-model="selectedProduct.name">
+                                </div>
+                                <div class="form-group">
+                                    <label>section</label>
+                                    <input type="text" class="form-control" ng-model="selectedProduct.section">
+                                </div>
+                                <div class="form-group">
+                                    <label>quantity</label>
+                                    <input type="number" class="form-control" ng-model="selectedProduct.quantity">
+                                </div>
+                                <div class="form-group">
+                                    <label>price</label>
+                                    <input type="number" class="form-control" ng-model="selectedProduct.price">
+                                </div>
+                                <div class="form-group">
+                                    <label for=""> description </label>
+                                    <textarea name="" id="" cols="30" rows="5" class="form-control"
+                                        ng-model="selectedProduct.description"></textarea>
+                                </div>
+                                <button class="btn btn-success btn-block">Update</button>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
